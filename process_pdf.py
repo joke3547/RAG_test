@@ -1,3 +1,4 @@
+#由於資安問題，下載OCR以及設定環境變數都需要系統管理員權限, 故先沒用OCR(識讀PDF中圖片內文字的功能)
 import pytesseract
 import fitz  # PyMuPDF
 from transformers import BlipProcessor, BlipForConditionalGeneration
@@ -18,7 +19,7 @@ def extract_text_from_pdf(pdf_path):
         text += page.get_text()
     return text
 
-# 2. 圖片描述 + OCR 辨識
+# 2. 圖片描述 + OCR 辨識 (由於沒有安裝OCR，所以這部分並沒用到ORC)
 def extract_image_descriptions_from_pdf(pdf_path):
     processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
     model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
@@ -41,7 +42,11 @@ def extract_image_descriptions_from_pdf(pdf_path):
             description = processor.decode(out[0], skip_special_tokens=True)
 
             # OCR 圖片文字
-            ocr_text = pytesseract.image_to_string(image, lang="chi_tra")  # 確保已安裝中文語言包
+            try:
+                ocr_text = pytesseract.image_to_string(image, lang="chi_tra")  # 確保已安裝中文語言包
+            except Exception as e:
+                print(f"[⚠️ OCR failed] {e}")
+                ocr_text = ""
 
             # 合併兩者
             combined = f"Image Description: {description}\nOCR Text: {ocr_text.strip()}"
@@ -72,7 +77,6 @@ def process_pdf(pdf_path):
 
     os.makedirs("index", exist_ok=True)
     os.makedirs("texts", exist_ok=True)
-    os.makedirs("summaries", exist_ok=True)  # 新增資料夾用於儲存摘要
 
     text = extract_text_from_pdf(pdf_path)
     descriptions = extract_image_descriptions_from_pdf(pdf_path)
@@ -92,11 +96,5 @@ def process_pdf(pdf_path):
     with open(text_path, "w", encoding="utf-8") as f:
         for chunk in chunks:
             f.write(chunk + "\n\n")
-
-    # 儲存摘要，這裡可以選擇將第一段文字作為摘要，或是簡單的摘要
-    summary = chunks[0]  # 或者使用其他方法生成摘要
-    summary_path = os.path.join("summaries", f"{base_name}_summary.txt")
-    with open(summary_path, "w", encoding="utf-8") as f:
-        f.write(summary + "\n\n")  # 加上一個換行符號，確保格式正常
 
     return base_name, len(chunks)
