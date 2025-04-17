@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>問答結果</title>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #f7f7f7;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question, .answer {
+            background-color: #fff;
+            border-left: 4px solid #007BFF;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        .label {
+            font-weight: bold;
+            color: #007BFF;
+            margin-bottom: 5px;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>問答結果</h1>
+
+    <div class="question">
+        <div class="label">你的問題：</div>
+        <div>{{ question }}</div>
+    </div>
+
+    <div class="answer">
+        <div class="label">模型的回答：</div>
+        <div>{{ answer }}</div>
+    </div>
+
+    <a href="/" class="button">回到首頁再問一次</a>
+</body>
+</html>
