@@ -53,7 +53,7 @@
 
     <div class="answer">
         <div class="label">模型的回答：</div>
-        <div>{{ answer }}</div>
+        <div>{{ answer | replace('\n', '<br>') | safe }}</div> <!-- 用replace將換行符號換成<br> -->
     </div>
 
     <a href="/" class="button">回到首頁再問一次</a>

@@ -1,20 +1,107 @@
 <!doctype html>
-<html>
-  <head>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>上傳 PDF</title>
-  </head>
-  <body>
-    <h1>上傳 PDF 檔案進行處理</h1>
-    <form method="post" enctype="multipart/form-data">
-      <input type="file" name="pdf">
-      <input type="submit" value="上傳">
-    </form>
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        h2 {
+            text-align: center;
+            font-size: 20px;
+            color: #555;
+            margin-top: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 0 auto;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+        }
+        input[type="submit"], button {
+            display: inline-block;
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #0056b3;
+        }
+        .hr-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .hr-container hr {
+            width: 45%;
+            margin: 0;
+        }
+        .hr-container span {
+            font-size: 18px;
+            color: #555;
+            margin: 0 15px;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>上傳 PDF 檔案進行處理</h1>
 
-    <hr>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="pdf" accept=".pdf" required>
+            </div>
+            <input type="submit" value="上傳 PDF">
+        </form>
 
-    <h2>或</h2>
-    <a href="/ask">
-      <button>前往問答頁面</button>
-    </a>
-  </body>
+        <div class="hr-container">
+            <hr>
+            <span>或</span>
+            <hr>
+        </div>
+
+        <h2>前往問答頁面</h2>
+        <a href="/ask">
+            <button>前往問答頁面</button>
+        </a>
+    </div>
+</body>
 </html>
